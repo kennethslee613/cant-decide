@@ -1,8 +1,8 @@
 <template>
   <header>
     <span class="header-items">
-      <router-link class="header-item" tag="button" to="/">Home</router-link>
-      <router-link class="header-item" tag="button" to="/about">About</router-link>
+      <router-link class="btn header-item" tag="button" to="/">Home</router-link>
+      <router-link class="btn header-item" tag="button" to="/about">About</router-link>
     </span>
   </header>
 </template>
@@ -20,24 +20,9 @@ header {
   display: flex;
 }
 
-button {
-  border: none;
-  background: #bc1212;
-  color: #fff;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 3px;
+.header-item {
   margin: 2px 5px;
-  font-size: 16px;
-}
-
-button:hover {
-  background: #910f0f;
-}
-
-button:focus {
-  outline-color: #ccc;
-  outline-style: dashed;
+  padding: 10px 20px;
 }
 
 .header-items {

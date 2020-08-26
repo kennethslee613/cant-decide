@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TheHeader />
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -29,12 +29,22 @@ body {
   color: #2c3e50;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.btn {
+  border: none;
+  background: #bc1212;
+  color: #fff;
+  padding: 12px 22px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.btn:hover {
+  background: #910f0f;
+}
+
+.btn:focus {
+  outline-color: #ccc;
+  outline-style: dashed;
 }
 </style>

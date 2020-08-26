@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <LocationForm msg="Welcome to Your Vue.js App"/>
+    <LocationSelect />
   </div>
 </template>
 
 <script>
-import LocationForm from '@/components/LocationForm.vue'
+import LocationSelect from '@/components/LocationSelect.vue'
 
 export default {
   name: 'Home',
   components: {
-    LocationForm
+    LocationSelect
   }
 }
 </script>
