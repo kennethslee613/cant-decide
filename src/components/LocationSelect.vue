@@ -30,6 +30,7 @@
           </div>
           <input
             type="number"
+            step="any"
             name="miles"
             placeholder="5"
             v-model="miles"
@@ -59,7 +60,8 @@ export default {
       locationObject: null,
       miles: 5,
       noLocationInput: false,
-      mobile: false
+      mobile: false,
+      nearbyRestaurants: [],
     };
   },
   methods: {
@@ -77,22 +79,7 @@ export default {
           this.noLocationInput = true;
         }
 
-        let nearbySearchRequest = {
-          location: this.getCoordinates(),
-          radius: this.milesToMeters(this.miles),
-          type: 'restaurant',
-          openNow: true
-        };
-        const service = new window.google.maps.places.PlacesService(document.createElement('div'));
-        service.nearbySearch(nearbySearchRequest, (results, status, pagination) => {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-            console.log(results);
-            console.log(pagination)
-            // while (pagination.hasNextPage) {
-            //   console.log(pagination.nextPage())
-            // }
-          }
-        });
+        this.nearbyRestaurants = await this.restaurantSearch();
       } catch (error) {
         alert('The Google API is currently unavailable.');
         console.error(error);
@@ -112,6 +99,35 @@ export default {
               resolve(results[0]);
             } else {
               throw 'Autocomplete failed.';
+            }
+          });
+        } catch (error) {
+          reject(error);
+        }
+      });
+    },
+    restaurantSearch() {
+      return new Promise((resolve, reject) => {
+        try {
+          let nearbySearchRequest = {
+            location: this.getCoordinates(),
+            radius: this.milesToMeters(this.miles),
+            type: 'restaurant',
+            openNow: true,
+          };
+          let nearbyRestaurants = [];
+          const service = new window.google.maps.places.PlacesService(document.createElement('div'));
+          service.nearbySearch(nearbySearchRequest, (results, status, pagination) => {
+            if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+              nearbyRestaurants = [...nearbyRestaurants, ...results];
+              if (!pagination.hasNextPage) {
+                resolve(nearbyRestaurants);
+              }
+              setTimeout(() => {
+                pagination.nextPage();
+              }, 2000)
+            } else {
+              throw 'Nearby search failed.';
             }
           });
         } catch (error) {
