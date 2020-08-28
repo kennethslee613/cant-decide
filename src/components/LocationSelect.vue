@@ -63,42 +63,59 @@ export default {
     };
   },
   methods: {
-    submitLocation(event) {
-      if (event !== null) {
-        event.preventDefault();
-      }
+    async submitLocation(event) {
+      event.preventDefault();
 
-      if (this.location !== '') {
-        this.noLocationInput = false;
-        if (this.locationObject === null) {
+      try {
+        if (this.location !== '') {
+          this.noLocationInput = false;
+          if (this.locationObject === null) {
+            this.locationObject = await this.autocompleteOnSubmit();
+              this.location = this.locationObject.formatted_address;
+          }
+        } else {
+          this.noLocationInput = true;
+        }
+
+        let nearbySearchRequest = {
+          location: this.getCoordinates(),
+          radius: this.milesToMeters(this.miles),
+          type: 'restaurant',
+          openNow: true
+        };
+        const service = new window.google.maps.places.PlacesService(document.createElement('div'));
+        service.nearbySearch(nearbySearchRequest, (results, status, pagination) => {
+          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+            console.log(results);
+            console.log(pagination)
+            // while (pagination.hasNextPage) {
+            //   console.log(pagination.nextPage())
+            // }
+          }
+        });
+      } catch (error) {
+        alert('The Google API is currently unavailable.');
+        console.error(error);
+      }
+    },
+    autocompleteOnSubmit() {
+      return new Promise((resolve, reject) => {
+        try {
           const autocompleteRequest = {
             query: this.location,
             fields: ["formatted_address", "geometry"]
           };
 
-          console.log('BEING CALLED')
           const service = new window.google.maps.places.PlacesService(this.$refs.autocomplete);
           service.findPlaceFromQuery(autocompleteRequest, (results, status) => {
             if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-              this.locationObject = results[0]
-              this.location = this.locationObject.formatted_address;
+              resolve(results[0]);
+            } else {
+              throw 'Autocomplete failed.';
             }
           });
-        }
-      } else {
-        this.noLocationInput = true;
-      }
-
-      let nearbySearchRequest = {
-        location: this.getCoordinates(),
-        radius: this.milesToMeters(this.miles),
-        type: 'restaurant',
-        openNow: true
-      };
-      const service = new window.google.maps.places.PlacesService(document.createElement('div'));
-      service.nearbySearch(nearbySearchRequest, (results, status) => {
-        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          console.log(results);
+        } catch (error) {
+          reject(error);
         }
       });
     },
@@ -148,7 +165,6 @@ export default {
         this.location = this.locationObject.formatted_address;
       } else {
         this.locationObject = null;
-        this.submitLocation(null);
       }
     });
   }
