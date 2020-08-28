@@ -35,7 +35,7 @@ body {
   color: #fff;
   padding: 12px 22px;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 4px;
   font-size: 16px;
 }
 
@@ -44,7 +44,8 @@ body {
 }
 
 .btn:focus {
-  outline-color: #ccc;
+  outline-color: #888;
   outline-style: dashed;
+  outline-offset: 2px;
 }
 </style>

@@ -25,6 +25,11 @@ header {
   padding: 10px 20px;
 }
 
+.header-item:focus {
+  background: #910f0f;
+  outline: none;
+}
+
 .header-items {
   margin-left: auto;
 }
