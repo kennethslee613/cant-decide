@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TheHeader />
-    <router-view />
+    <router-view :mobile="mobile" />
   </div>
 </template>
 
@@ -12,6 +12,25 @@ export default {
   name: 'App',
   components: {
     TheHeader
+  },
+  data() {
+    return {
+      mobile: false
+    };
+  },
+  created() {
+    const observer = new ResizeObserver((entries) => {
+      entries.forEach((entry) => {
+        const contentRect = entry.contentRect;
+        if (contentRect.width < 750) {
+          this.mobile = true;
+        } else {
+          this.mobile = false;
+        }
+      });
+    });
+
+    observer.observe(document.getElementsByTagName('body')[0])
   }
 }
 </script>
@@ -25,7 +44,6 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 

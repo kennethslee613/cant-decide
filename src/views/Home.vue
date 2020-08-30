@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <LocationSelect />
+    <LocationSelect :mobile="mobile" />
   </div>
 </template>
 
@@ -11,6 +11,15 @@ export default {
   name: 'Home',
   components: {
     LocationSelect
+  },
+  props: {
+    randomRestaurant: {
+      type: Object,
+      default: null
+    },
+    mobile: {
+      type: Boolean
+    }
   }
 }
 </script>

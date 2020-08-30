@@ -8,7 +8,8 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    props: true
   },
   {
     path: '/about',

@@ -60,9 +60,13 @@ export default {
       locationObject: null,
       miles: 5,
       noLocationInput: false,
-      mobile: false,
       nearbyRestaurants: [],
     };
+  },
+  props: {
+    mobile: {
+      type: Boolean
+    }
   },
   methods: {
     async submitLocation(event) {
@@ -147,20 +151,6 @@ export default {
       }
     }
   },
-  created() {
-    const observer = new ResizeObserver((entries) => {
-      entries.forEach((entry) => {
-        const contentRect = entry.contentRect;
-        if (contentRect.width < 750) {
-          this.mobile = true;
-        } else {
-          this.mobile = false;
-        }
-      });
-    });
-
-    observer.observe(document.getElementsByTagName('body')[0])
-  },
   async mounted() {
     if (!window.google) {
       const options = {
@@ -193,6 +183,7 @@ export default {
 }
 .form-mobile {
   margin: 50px;
+  text-align: center;
 }
 
 input {
