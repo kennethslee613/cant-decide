@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <LocationSelect :mobile="mobile" />
+    <LocationSelect
+      :mobile="mobile"
+      :random-restaurant="randomRestaurant"
+      @set-random-restaurant="setRandomRestaurant"
+    />
   </div>
 </template>
 
@@ -13,12 +17,18 @@ export default {
     LocationSelect
   },
   props: {
-    randomRestaurant: {
-      type: Object,
-      default: null
-    },
     mobile: {
       type: Boolean
+    }
+  },
+  data() {
+    return {
+      randomRestaurant: null
+    };
+  },
+  methods: {
+    setRandomRestaurant(nearbyRestaurants) {
+      this.randomRestaurant = nearbyRestaurants[Math.floor(Math.random() * nearbyRestaurants.length)];
     }
   }
 }

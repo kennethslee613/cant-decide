@@ -66,7 +66,10 @@ export default {
   props: {
     mobile: {
       type: Boolean
-    }
+    },
+    randomRestaurant: {
+      type: Object
+    },
   },
   methods: {
     async submitLocation(event) {
@@ -84,6 +87,8 @@ export default {
         }
 
         this.nearbyRestaurants = await this.restaurantSearch();
+
+        this.$emit('set-random-restaurant', this.nearbyRestaurants);
       } catch (error) {
         alert('The Google API is currently unavailable.');
         console.error(error);
