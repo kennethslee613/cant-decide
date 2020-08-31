@@ -1,4 +1,4 @@
-# pick-me-a-restaurant
+# cant-decide
 
 ## Project setup
 ```
