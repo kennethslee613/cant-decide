@@ -42,7 +42,12 @@
             mile(s)
           </div>
         </div>
-        <input type="submit" class="btn" value="Submit" />
+        <input
+          type="submit"
+          class="btn"
+          :class="{'submit': !mobile}"
+          value="Submit"
+        />
       </div>
     </form>
   </div>
@@ -209,7 +214,7 @@ input[type="number"] {
   padding: 5px 10px;
 }
 
-input[type="submit"] {
+.submit {
   flex: 2 1 auto;
   border-radius: 0px 4px 4px 0px;
 }
