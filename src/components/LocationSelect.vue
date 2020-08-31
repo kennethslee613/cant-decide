@@ -82,6 +82,7 @@ export default {
           }
         } else {
           this.noLocationInput = true;
+          return;
         }
 
         this.nearbyRestaurants = await this.restaurantSearch();
@@ -155,7 +156,6 @@ export default {
     }
   },
   async mounted() {
-    console.log(window.google.maps)
     const autocomplete = new window.google.maps.places.Autocomplete(
       (this.$refs.autocomplete),
       {types: ['geocode']}
