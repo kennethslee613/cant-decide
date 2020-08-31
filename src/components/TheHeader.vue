@@ -18,6 +18,10 @@ header {
   background: #bc1212;
   padding: 10px;
   display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .header-item {

@@ -7,6 +7,6 @@
 
 <style scoped>
 .about {
-  margin: 50px;
+  margin: 112px 50px 50px 50px;
 }
 </style>

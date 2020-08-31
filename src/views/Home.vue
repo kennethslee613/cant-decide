@@ -43,7 +43,6 @@ export default {
         this.randomRestaurant = null;
       } else {
         this.randomRestaurant = nearbyRestaurants[Math.floor(Math.random() * nearbyRestaurants.length)];
-        console.log(this.randomRestaurant)
       }
     }
   },
@@ -55,6 +54,8 @@ export default {
       const loader = new Loader(process.env.VUE_APP_GOOGLE_API_KEY, options);
       await loader.load();
       this.googleLoaded = true;
+    } else {
+      this.googleLoaded = true;
     }
   }
 }
@@ -62,9 +63,9 @@ export default {
 
 <style scoped>
 .home {
-  margin: 90px 180px 40px 180px;
+  margin: 142px 180px 40px 180px;
 }
 .home-mobile {
-  margin: 50px 30px;
+  margin: 112px 30px 30px 30px;
 }
 </style>
