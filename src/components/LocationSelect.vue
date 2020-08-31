@@ -45,15 +45,12 @@
         <input type="submit" class="btn" value="Submit" />
       </div>
     </form>
-    <div>{{location}}</div>
   </div>
 </template>
 
 <script>
-import { Loader } from 'google-maps';
-
 export default {
-  name: 'LocationForm',
+  name: 'LocationSelect',
   data() {
     return {
       location: '',
@@ -74,6 +71,7 @@ export default {
   methods: {
     async submitLocation(event) {
       event.preventDefault();
+      this.$emit('set-random-restaurant', null);
 
       try {
         if (this.location !== '') {
@@ -157,14 +155,7 @@ export default {
     }
   },
   async mounted() {
-    if (!window.google) {
-      const options = {
-        libraries: ['places']
-      };
-      const loader = new Loader(process.env.VUE_APP_GOOGLE_API_KEY, options);
-      await loader.load();
-    }
-
+    console.log(window.google.maps)
     const autocomplete = new window.google.maps.places.Autocomplete(
       (this.$refs.autocomplete),
       {types: ['geocode']}
@@ -184,10 +175,10 @@ export default {
 
 <style scoped>
 .form {
-  margin: 100px;
+  margin-bottom: 75px;
 }
 .form-mobile {
-  margin: 50px;
+  margin-bottom: 30px;
   text-align: center;
 }
 
@@ -200,14 +191,11 @@ input[type="text"] {
   padding: 5px 10px;
 }
 .input-location {
-  border: solid #a7a7a7;
+  border: solid #b9b9b9;
   border-width: 1px 0px;
-  /* border-width: 1px; */
-  /* border-top-right-radius : 0px; */
-  /* border-bottom-right-radius : 0px; */
 }
 .input-location-mobile {
-  border: solid #a7a7a7;
+  border: solid #b9b9b9;
   border-width: 1px 1px 1px 0px;
   border-top-right-radius : 4px;
   border-bottom-right-radius : 4px;
@@ -216,12 +204,9 @@ input[type="text"] {
 input[type="number"] {
   flex: 1 1;
   width: 50px;
-  border: solid #a7a7a7;
+  border: solid #b9b9b9;
   border-width: 1px 0px;
   padding: 5px 10px;
-  /* border-width: 1px; */
-  /* border-top-right-radius : 0px; */
-  /* border-bottom-right-radius : 0px; */
 }
 
 input[type="submit"] {
@@ -258,7 +243,7 @@ input[type="submit"] {
 .section-text {
   color: #000;
   background: #eee;
-  border: solid #a7a7a7;
+  border: solid #b9b9b9;
   border-width: 1px 1px 1px 1px;
   padding: 0px 20px;
   font-size: 14px;

@@ -38,6 +38,7 @@ export default {
 <style>
 body {
   margin: 0px;
+  background: #fafafa;
 }
 
 #app {
