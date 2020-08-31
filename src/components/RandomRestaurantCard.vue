@@ -27,16 +27,6 @@ export default {
     randomRestaurant: Object,
     mobile: Boolean
   },
-  watch: {
-    randomRestaurant: () => {
-      // console.log('HERE')
-      // console.log(randomRestaurant.geometry.location.lat(), randomRestaurant.geometry.location.lng())
-      // console.log(document.getElementById('map'))
-      // this.map = new window.google.maps.Map(document.getElementById('map'), {
-      //   zoom: 15
-      // });
-    }
-  },
   data() {
     return {
       map: null

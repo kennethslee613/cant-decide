@@ -39,7 +39,7 @@
             class="section section-text"
             :class="{'miles': !mobile, 'miles-mobile': mobile}"
           >
-            miles
+            mile(s)
           </div>
         </div>
         <input type="submit" class="btn" value="Submit" />
@@ -55,7 +55,7 @@ export default {
     return {
       location: '',
       locationObject: null,
-      miles: 5,
+      miles: 1,
       noLocationInput: false,
       nearbyRestaurants: [],
     };
