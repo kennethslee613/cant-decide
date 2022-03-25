@@ -6,8 +6,10 @@
       :random-restaurant="randomRestaurant"
       @set-random-restaurant="setRandomRestaurant"
     />
+    <div v-if="randomRestaurant === null" class="loading">
+      <Loading />
+    </div>
     <RandomRestaurantCard
-      class="card"
       v-if="googleLoaded && randomRestaurant !== null"
       :random-restaurant="randomRestaurant"
       :mobile="mobile"
@@ -19,12 +21,14 @@
 import { Loader } from 'google-maps';
 import LocationSelect from '@/components/LocationSelect.vue';
 import RandomRestaurantCard from '@/components/RandomRestaurantCard.vue';
+import Loading from '@/components/Loading.vue';
 
 export default {
   name: 'Home',
   components: {
     LocationSelect,
-    RandomRestaurantCard
+    RandomRestaurantCard,
+    Loading
   },
   props: {
     mobile: {
@@ -67,5 +71,9 @@ export default {
 }
 .home-mobile {
   margin: 112px 30px 30px 30px;
+}
+.loading {
+  margin: 130px auto;
+  width: 80px;
 }
 </style>
