@@ -6,7 +6,7 @@
       :random-restaurant="randomRestaurant"
       @set-random-restaurant="setRandomRestaurant"
     />
-    <div v-if="randomRestaurant === null" class="loading">
+    <div v-if="isLoading" class="loading">
       <Loading />
     </div>
     <RandomRestaurantCard
@@ -38,14 +38,17 @@ export default {
   data() {
     return {
       randomRestaurant: null,
-      googleLoaded: false
+      googleLoaded: false,
+      isLoading: false
     };
   },
   methods: {
     setRandomRestaurant(nearbyRestaurants) {
       if (nearbyRestaurants === null) {
+        this.isLoading = true;
         this.randomRestaurant = null;
       } else {
+        this.isLoading = false;
         this.randomRestaurant = nearbyRestaurants[Math.floor(Math.random() * nearbyRestaurants.length)];
       }
     }

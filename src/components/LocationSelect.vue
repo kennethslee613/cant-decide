@@ -136,9 +136,7 @@ export default {
               if (!pagination.hasNextPage) {
                 resolve(nearbyRestaurants);
               }
-              setTimeout(() => {
-                pagination.nextPage();
-              }, 2000)
+              pagination.nextPage();
             } else {
               throw 'Nearby search failed.';
             }
@@ -165,6 +163,7 @@ export default {
       (this.$refs.autocomplete),
       {types: ['geocode']}
     );
+    autocomplete.setFields(['geometry', 'formatted_address']);
 
     autocomplete.addListener('place_changed', async () => {
       this.locationObject = await autocomplete.getPlace();
